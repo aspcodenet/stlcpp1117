@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <array>
 #include <algorithm>
 #include <numeric>
 
@@ -34,17 +35,114 @@ private:
 
 
 // DEFINE = preprocessorn - FATTAR INTE C/C++ ren TEXT
+// #define BIT_SET(a,b) (dasdaasd,asdasdasd)
 
 // DATASTRUKTURER = hur kan man skapa DS som funkar med "vad som helst" int, HockeyPlayer
 // ALGORITMER - hur kan man återanvända en algoritm med "vad som helst" int, float, string
 
+// D.R.Y
+
+
+
+// int findBiggest(int i,int j,int k){
+//     if(i > j && i > k){
+//         return i;
+//     }
+//     if(j > i && j > k){
+//         return j;
+//     }
+//     return k; 
+// }
+
+// float findBiggest(float i,float j,float k){
+//     if(i > j && i > k){
+//         return i;
+//     }
+//     if(j > i && j > k){
+//         return j;
+//     }
+//     return k; 
+// }
+
+// std::string findBiggest(std::string i,std::string j,std::string k){
+//     if(i > j && i > k){
+//         return i;
+//     }
+//     if(j > i && j > k){
+//         return j;
+//     }
+//     return k; 
+// }
+
+
+template <typename T>
+T findBiggest(T i,T j,T k){
+    if(i > j && i > k){
+        return i;
+    }
+    if(j > i && j > k){
+        return j;
+    }
+    return k; 
+}
+
+
+
+template<typename T,int N>
+class MyArray{
+public: 
+    MyArray(){
+        antal = 0;
+    }
+    void add(T one){
+        // om antalet > max 
+        // return "ERROR - finns inte plats för mer"
+        // 
+        things[antal] = one;
+        antal++;
+    }
+    int size(){
+        return antal;
+    }
+    T getAt(int index){
+        return things[index];
+    }
+
+
+private:
+    int antal;
+    T things[N]; // KAN INTE VÄXA/KRYMPA .- statisk i storlek  , INTE static
+};
+
+
+
+
 
 int main(){ 
+    MyArray<int,120> ages;
+    MyArray<std::string,2> namn;
     int tal1 = 12; 
     int tal2 = 13;
     int tal3 = 4; // Tänk er att man matar in
+    int biggest = findBiggest<int>(tal1,tal2,tal3);
+
+    float tal1f = 12.0f; 
+    float tal2f = 13.0f;
+    float tal3f = 12.3f; // Tänk er att man matar in
+    float biggestf = findBiggest<float>(tal1f,tal2f,tal3f);
+
+    std::string namn1 = "Anna"; 
+    std::string namn2 = "Stefan"; 
+    std::string namn3 = "Kalle"; 
+    std::string na = findBiggest<std::string>(namn1,namn2,namn3);
+
+
+
     // Skriv en funktion som tar fram det STÖRSTA talet - ALGORITM (!)
     std::cout << "Hej" << tal1 << tal2 << tal3  << std::endl;
+
+
+    std::vector<int> test = {12,1222,32234,434};
     
 
     std::vector<Movie> greatMovies{
@@ -75,6 +173,73 @@ int main(){
         Movie("Ballers", 2015, Movie::MovieType::MovieType_Tv), // Startår, en TV-serie        
         Movie("Star Trek: Voyager",2000,Movie::MovieType::MovieType_Tv),
     };
+    // Ta reda på FINNS DET NÅN FILM SOM ÄR SKAPAD 2005
+    // BAD SEMANTICS
+    // bool exists = false;
+    // for(Movie movie :greatMovies){
+    //     if(movie.getYear() == 2005){
+    //         exists = true;
+    //         break;
+    //     }
+    // }
+    // if(exists == true){
+    //     std::cout << "Ja det finns nån film som är skapad 2005" << std::endl;
+    // }
+    bool exists = std::any_of(std::begin(greatMovies), std::end(greatMovies), [](Movie const &movie){
+        return movie.getYear() == 2005;
+    });
+
+    // STL = undvika loopar och istället låta koden "säga" vad den gör
+
+    // int count = 0;
+    // for(Movie movie :greatMovies){
+    //     if(movie.getYear() == 2005){
+    //         count++;
+    //     }
+    // }
+    int count = std::count_if(std::begin(greatMovies),std::end(greatMovies),[](Movie const &movie){
+        return movie.getYear() == 2005;
+    });
+
+
+    int count = std::count_if(greatMovies.begin(),greatMovies.end(),[](Movie const &movie){
+        return movie.getYear() == 2005;
+    });
+
+
+
+
+
+    std::cout << "Antal skapade 2005" << count << std::endl;
+
+
+
+    std::sort(std::begin(greatMovies), std::end(greatMovies),[] (Movie const &movie1,Movie const &movie2){
+        return movie1.getYear() < movie2.getYear();
+    } );
+
+
+
+    for(Movie movie :greatMovies){ // går från början till slut
+        std::cout << movie.getName() << std::endl;
+    }
+
+    std::for_each(std::begin(greatMovies), std::end(greatMovies),[](Movie const &movie){
+        std::cout << movie.getName() << std::endl;
+    });
+
+
+    // std::for_each(std::end(greatMovies)-1, std::begin(greatMovies),[](Movie const &movie){
+    //     std::cout << movie.getName() << std::endl;
+    // });
+
+
+
+
+
+
+
+
 
     // // Finns det nån movie skapad 2000
     //  bool found = std::any_of(std::begin(greatMovies),std::end(greatMovies),[](Movie const &movie){
