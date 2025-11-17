@@ -42,8 +42,9 @@ private:
 int main(){ 
     int tal1 = 12; 
     int tal2 = 13;
-    int taL3 = 4; // Tänk er att man matar in
+    int tal3 = 4; // Tänk er att man matar in
     // Skriv en funktion som tar fram det STÖRSTA talet - ALGORITM (!)
+    std::cout << "Hej" << tal1 << tal2 << tal3  << std::endl;
     
 
     std::vector<Movie> greatMovies{
