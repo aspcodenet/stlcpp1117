@@ -33,11 +33,20 @@ private:
 
 
 
+// DEFINE = preprocessorn - FATTAR INTE C/C++ ren TEXT
+
+// DATASTRUKTURER = hur kan man skapa DS som funkar med "vad som helst" int, HockeyPlayer
+// ALGORITMER - hur kan man återanvända en algoritm med "vad som helst" int, float, string
 
 
 int main(){ 
+    int tal1 = 12; 
+    int tal2 = 13;
+    int taL3 = 4; // Tänk er att man matar in
+    // Skriv en funktion som tar fram det STÖRSTA talet - ALGORITM (!)
+    
 
- std::vector<Movie> greatMovies{
+    std::vector<Movie> greatMovies{
         Movie("The Mummy returns",2001,Movie::MovieType::MovieType_Film),
         Movie("Fast and Furious 7",2014,Movie::MovieType::MovieType_Film),
         Movie("Fast & Furious Presents: Hobbs & Shaw",2019,Movie::MovieType::MovieType_Film),
@@ -227,12 +236,6 @@ int main(){
 
 
 
-// DEFINE = preprocessorn - FATTAR INTE C/C++ ren TEXT
-
-
-
-// DATASTRUKTURER = hur kan man skapa DS som funkar med "vad som helst" int, HockeyPlayer
-// ALGORITMER - hur kan man återanvända en algoritm med "vad som helst" int, float, string
 
 // om T skulle betyda "int" så int findBiggest(int i, int j, int k)
 // om T skulle betyda "float" så float findBiggest(float i, float j, float k)
