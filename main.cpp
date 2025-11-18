@@ -74,45 +74,63 @@ private:
 //     return k; 
 // }
 
+// TEMPLATES
+// #define BIT_SET(a,b) (dsdsadsadsa)
+// #include <> PREPROCESSORN
 
 
-
-// template<typename T,int N>
-// class MyArray{
-// public: 
-//     MyArray(){
-//         antal = 0;
-//     }
-//     void add(T one){
-//         // om antalet > max 
-//         // return "ERROR - finns inte plats för mer"
-//         // 
-//         things[antal] = one;
-//         antal++;
-//     }
-//     int size(){
-//         return antal;
-//     }
-//     T getAt(int index){
-//         return things[index];
-//     }
-
-
-// private:
-//     int antal;
-//     T things[N]; // KAN INTE VÄXA/KRYMPA .- statisk i storlek  , INTE static
-// };
+template<typename T,int N>
+class MyArray{
+public: 
+    MyArray(){
+        antal = 0;
+    }
+    void add(T one){
+        // om antalet > max 
+        // return "ERROR - finns inte plats för mer"
+        // 
+        things[antal] = one;
+        antal++;
+    }
+    int size(){
+        return antal;
+    }
+    T getAt(int index){
+        return things[index];
+    }
 
 
+private:
+    int antal;
+    T things[N]; // KAN INTE VÄXA/KRYMPA .- statisk i storlek  , INTE static
+};
+
+template<typename T>
+T findBiggest(T i,T j,T k){
+    if(i > j && i > k){
+        return i;
+    }
+    if(j > i && j > k){
+        return j;
+    }
+    return k; 
+}
 
 
+int main(){
+    MyArray<Movie,10> test;
+    MyArray<int,3> dsad;
 
-int main(){ 
-    //int tal1 = 12; 
-    //int tal2 = 13;
-    //int tal3 = 4; // Tänk er att man matar in
-    //int biggest = findBiggest(tal1,tal2,tal3);
+    int tal1 = 12; 
+    int tal2 = 13;
+    int tal3 = 4; // Tänk er att man matar in
+    int biggest = findBiggest<int>(tal1,tal2,tal3);
 
+    float biggestF = findBiggest<float>(12.0f,12.4f,1.0f);
+    std::string biggestS = findBiggest<std::string>("Anna", "Stefan", "Lisa");
+    
+    
+    //
 
     std::vector<Movie> greatMovies{
         Movie("The Mummy returns",2001,Movie::MovieType::MovieType_Film),
@@ -154,10 +172,12 @@ int main(){
     // if(exists == true){
     //     std::cout << "Ja det finns nån film som är skapad 2005" << std::endl;
     // }
-    // bool exists = std::any_of(std::begin(greatMovies), std::end(greatMovies), [](Movie const &movie){
-    //     return movie.getYear() == 2005;
-    // });
-
+    bool exists = std::any_of(std::begin(greatMovies), std::end(greatMovies), [](Movie const &movie){
+        return movie.getYear() == 2005;
+    });
+    if(exists == true){
+        std::cout << "Ja det finns nån film som är skapad 2005" << std::endl;
+    }
     // STL = undvika loopar och istället låta koden "säga" vad den gör
 
     // int count = 0;
@@ -166,9 +186,9 @@ int main(){
     //         count++;
     //     }
     // }
-    // int count = std::count_if(std::begin(greatMovies),std::end(greatMovies),[](Movie const &movie){
-    //     return movie.getYear() == 2005;
-    // });
+    int count = std::count_if(std::begin(greatMovies),std::end(greatMovies),[](Movie const &movie){
+        return movie.getYear() == 2005;
+    });
 
 
     // int count = std::count_if(greatMovies.begin(),greatMovies.end(),[](Movie const &movie){
@@ -183,19 +203,19 @@ int main(){
 
 
 
-    // std::sort(std::begin(greatMovies), std::end(greatMovies),[] (Movie const &movie1,Movie const &movie2){
-    //     return movie1.getYear() < movie2.getYear();
-    // } );
+    std::sort(std::begin(greatMovies), std::end(greatMovies),[] (Movie const &movie1,Movie const &movie2){
+        return movie1.getYear() < movie2.getYear();
+    } );
 
 
 
-    // for(Movie movie :greatMovies){ // går från början till slut
-    //     std::cout << movie.getName() << std::endl;
-    // }
+    for(Movie movie :greatMovies){ // går från början till slut
+        std::cout << movie.getName() << std::endl;
+    }
 
-    // std::for_each(std::begin(greatMovies), std::end(greatMovies),[](Movie const &movie){
-    //     std::cout << movie.getName() << std::endl;
-    // });
+    std::for_each(std::begin(greatMovies), std::end(greatMovies),[](Movie const &movie){
+        std::cout << movie.getName() << std::endl;
+    });
 
 
     // std::for_each(std::end(greatMovies)-1, std::begin(greatMovies),[](Movie const &movie){
