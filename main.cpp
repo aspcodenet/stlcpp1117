@@ -79,58 +79,45 @@ private:
 // #include <> PREPROCESSORN
 
 
-template<typename T,int N>
-class MyArray{
-public: 
-    MyArray(){
-        antal = 0;
-    }
-    void add(T one){
-        // om antalet > max 
-        // return "ERROR - finns inte plats för mer"
-        // 
-        things[antal] = one;
-        antal++;
-    }
-    int size(){
-        return antal;
-    }
-    T getAt(int index){
-        return things[index];
-    }
+// template<typename T,int N>
+// class MyArray{
+// public: 
+//     MyArray(){
+//         antal = 0;
+//     }
+//     void add(T one){
+//         // om antalet > max 
+//         // return "ERROR - finns inte plats för mer"
+//         // 
+//         things[antal] = one;
+//         antal++;
+//     }
+//     int size(){
+//         return antal;
+//     }
+//     T getAt(int index){
+//         return things[index];
+//     }
 
 
-private:
-    int antal;
-    T things[N]; // KAN INTE VÄXA/KRYMPA .- statisk i storlek  , INTE static
-};
+// private:
+//     int antal;
+//     T things[N]; // KAN INTE VÄXA/KRYMPA .- statisk i storlek  , INTE static
+// };
 
-template<typename T>
-T findBiggest(T i,T j,T k){
-    if(i > j && i > k){
-        return i;
-    }
-    if(j > i && j > k){
-        return j;
-    }
-    return k; 
-}
+// template<typename T>
+// T findBiggest(T i,T j,T k){
+//     if(i > j && i > k){
+//         return i;
+//     }
+//     if(j > i && j > k){
+//         return j;
+//     }
+//     return k; 
+// }
 
 
 int main(){
-    MyArray<Movie,10> test;
-    MyArray<int,3> dsad;
-
-    int tal1 = 12; 
-    int tal2 = 13;
-    int tal3 = 4; // Tänk er att man matar in
-    int biggest = findBiggest<int>(tal1,tal2,tal3);
-
-    float biggestF = findBiggest<float>(12.0f,12.4f,1.0f);
-    std::string biggestS = findBiggest<std::string>("Anna", "Stefan", "Lisa");
-    
-    
-    //
 
     std::vector<Movie> greatMovies{
         Movie("The Mummy returns",2001,Movie::MovieType::MovieType_Film),
@@ -162,16 +149,35 @@ int main(){
     };
     // Ta reda på FINNS DET NÅN FILM SOM ÄR SKAPAD 2005
     // BAD SEMANTICS
-    // bool exists = false;
-    // for(Movie movie :greatMovies){
-    //     if(movie.getYear() == 2005){
-    //         exists = true;
-    //         break;
-    //     }
-    // }
-    // if(exists == true){
-    //     std::cout << "Ja det finns nån film som är skapad 2005" << std::endl;
-    // }
+    bool exists = false;
+
+    for(Movie movie :greatMovies){
+        if(movie.getYear() == 2005){
+            exists = true;
+            break;
+        }
+    }
+    if(exists == true){
+        std::cout << "Ja det finns nån film som är skapad 2005" << std::endl;
+    }
+
+    int cnt = 0;
+
+    for(Movie movie :greatMovies){
+        if(movie.getYear() == 2005){
+            cnt++;
+        }
+    }
+    std::cout << cnt;
+
+    int cnt = std::count_if(std::begin(greatMovies), std::end(greatMovies), [](Movie const &movie){
+        return movie.getYear() == 2005;
+    });
+
+
+
+
+
     bool exists = std::any_of(std::begin(greatMovies), std::end(greatMovies), [](Movie const &movie){
         return movie.getYear() == 2005;
     });
